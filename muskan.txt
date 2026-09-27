@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Website Visitor Dashboard</title>
+
+    <!-- CSS -->
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #eef2f3;
+        }
+
+        .header {
+            background-color: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .header p {
+            margin-bottom: 0;
+        }
+
+        .box {
+            width: 85%;
+            max-width: 850px;
+            margin: 40px auto;
+            padding: 25px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .box h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        button {
+            display: block;
+            margin: 25px auto 0;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            background-color: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+    </style>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+    <!-- HTML -->
+
+    <div class="header">
+        <h1>Website Visitor Dashboard</h1>
+        <p>Monthly Visitor Statistics</p>
+    </div>
+
+    <div class="box">
+
+        <h2>Website Visitors</h2>
+
+        <canvas id="visitorChart"></canvas>
+
+        <button onclick="addVisitorData()">
+            Add New Month
+        </button>
+
+    </div>
+
+
+    <!-- JavaScript -->
+
+    <script>
+
+        let months = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June"
+        ];
+
+        let visitors = [
+            120,
+            180,
+            250,
+            210,
+            320,
+            400
+        ];
+
+
+        // Create the chart
+
+        const ctx = document.getElementById("visitorChart");
+
+        const visitorChart = new Chart(ctx, {
+
+            type: "line",
+
+            data: {
+                labels: months,
+
+                datasets: [{
+                    label: "Website Visitors",
+                    data: visitors,
+                    borderWidth: 3,
+                    tension: 0.3,
+                    fill: false
+                }]
+            },
+
+            options: {
+
+                responsive: true,
+
+                scales: {
+
+                    y: {
+                        beginAtZero: true,
+
+                        title: {
+                            display: true,
+                            text: "Number of Visitors"
+                        }
+                    },
+
+                    x: {
+                        title: {
+                            display: true,
+                            text: "Month"
+                        }
+                    }
+
+                }
+
+            }
+
+        });
+
+
+        // Add new data dynamically
+
+        function addVisitorData() {
+
+            let newMonth = "July";
+            let newVisitors = 520;
+
+            months.push(newMonth);
+            visitors.push(newVisitors);
+
+            visitorChart.update();
+        }
+
+    </script>
+
+</body>
+
+</html>
